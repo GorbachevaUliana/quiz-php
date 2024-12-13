@@ -76,7 +76,7 @@ session_start();
 	session_destroy();
 
 	?>
-	<form method="post" action="demo.php">
+	<form method="post" action="index.html">
 		<input type="submit" value="Try again">
 	</form>
 	<form method="post" action="./api/index.html">
