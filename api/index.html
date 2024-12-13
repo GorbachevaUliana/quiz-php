@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Quiz API</title>
+</head>
+<body style="
+	background-color: #665446;
+	font-family:Rubik;">
+	<div style="
+		height:100%;
+		width:50%;
+		border-radius: 20px;
+		background-color:#DEF2C4;
+		margin-left:25%;
+		margin-top: 10%;
+		padding-top: 2%;
+		text-align: center;
+		padding-bottom: 2%;">
+		<button style="height:55px;
+			border:none;
+			border-radius: 20px;
+			background-color:#de8264;
+			border: none;
+			width:250px;
+			cursor:pointer;" onclick="getUsers()">Get Users</button>
+		<button style="height:55px;
+			border:none;
+			border-radius: 20px;
+			background-color:#de8264;
+			border: none;
+			width:250px;
+			cursor:pointer;" onclick="getQuestions()">Get Questions</button>
+		<br><br>
+		<input style=" height:55px;
+			border:none;
+			border-radius: 20px;
+			background-color:#AECCB6;
+			width:200px;
+			margin-bottom: 2%;" type="text" id="name" placeholder="User name" required><br>
+		<input style=" height:55px;
+			border:none;
+			border-radius: 20px;
+			background-color:#AECCB6;
+			width:200px;
+			margin-bottom: 2%;" type="number" id="score" placeholder="Score" required><br>
+		<button style="height:55px;
+			border:none;
+			border-radius: 20px;
+			background-color:#de8264;
+			border: none;
+			width:250px;
+			cursor:pointer;" onclick="addNewUser()">Add New User</button>
+		<div id="result" style="white-space:pre"></div>
+		</div>
+
+<script>
+async function getUsers() {
+    const response = await fetch('api.php?endpoint=users');
+    const data = await response.json();
+    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+}
+
+async function getQuestions() {
+    const response = await fetch('api.php?endpoint=questions');
+    const data = await response.json();
+    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+}
+
+async function addNewUser() {
+    const name = document.getElementById('name').value;
+    const score = document.getElementById('score').value;
+    const response = await fetch('api.php?endpoint=users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `name=${name}&score=${score}`
+    });
+    const data = await response.json();
+    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>
